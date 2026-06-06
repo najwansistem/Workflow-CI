@@ -10,8 +10,7 @@ from sklearn.model_selection import train_test_split
 
 DATA_PATH = Path("breast_cancer_preprocessing.csv")
 
-mlflow.set_tracking_uri("file:./mlruns")
-mlflow.set_experiment("SMSML_Najwan_Mursyidan")
+
 mlflow.sklearn.autolog()
 
 def main():
