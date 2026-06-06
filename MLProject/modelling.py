@@ -29,7 +29,7 @@ def main():
         class_weight="balanced"
     )
 
-    with mlflow.start_run(run_name="random_forest_autolog"):
+    with mlflow.start_run():
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
 
