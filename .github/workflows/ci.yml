@@ -2,28 +2,28 @@ name: MLflow Project CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   retraining:
     runs-on: ubuntu-latest
-    steps:
-      - name: Set up job
-        run: echo "Starting MLflow Project CI"
 
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
-      - name: Check Env
+      - name: Check files
         run: |
-          python --version
-          pip --version
+          pwd
+          ls -la
+          ls -la MLProject
 
       - name: Install dependencies
         run: |
@@ -32,20 +32,10 @@ jobs:
 
       - name: Run MLflow Project
         run: |
-          mlflow run . --env-manager=local --experiment-name SMSML_Najwan_Mursyidan
-
-      - name: Get latest MLflow run_id
-        working-directory: MLProject
-        run: |
-          python - <<'PY'
-          import os
-          from pathlib import Path
-          runs = list(Path('mlruns').rglob('meta.yaml'))
-          print(f'Jumlah file meta MLflow: {len(runs)}')
-          PY
+          mlflow run MLProject --env-manager=local --experiment-name SMSML_Najwan_Mursyidan
 
       - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: mlflow-runs
-          path: MLProject/mlruns
+          name: mlruns-artifact
+          path: mlruns/
