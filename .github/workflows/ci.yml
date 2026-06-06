@@ -33,7 +33,7 @@ jobs:
       - name: Run MLflow Project
         run: |
           mlflow run ./MLProject --env-manager=local --experiment-name SMSML_Najwan_Mursyidan
-          
+
       - name: Upload MLflow artifacts
         uses: actions/upload-artifact@v4
         with:
